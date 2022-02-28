@@ -1,0 +1,120 @@
+#include<stdio.h>
+
+//function prototype
+void load(char *first, char *last, float *salary);
+void calc(float salary, float *rate, float *raise, float *newsalary);
+float tsal(float totalsalary, float salary);
+float traise(float totalraise, float raise);
+float tnewsal(float totalnewsal, float newsalary);
+void output(char *first, char *last, float salary, float rate, float raise, float newsalary);
+void total(float totalsal, float totalraise, float totalnewsal);
+
+int main()
+{
+    float salary, rate, newsalary, raise;
+    float totalnewsal, totalsal, totalraise;
+    totalnewsal = 0;
+    char first[15], last[20];
+    int numemploy, numtimes;
+
+    printf("How many employees : ");
+    scanf("%d", &numemploy);
+
+    for(numtimes=numemploy; numtimes>0; numtimes--)
+    {
+        load(first, last, &salary);
+        calc(salary, &rate, &raise, &newsalary);
+        totalsal = tsal (totalsal, salary);
+        totalraise = traise(totalraise, raise);
+        totalnewsal = tnewsal(totalnewsal, newsalary);
+        output(first, last, salary, rate, raise, newsalary);
+
+
+    }
+    total(totalsal, totalraise, totalnewsal);
+
+    return 0;
+}
+
+//load function
+void load(char *first, char *last, float *salary)
+{
+    printf("\nEnter the Employee's name: ");
+    gets(first);
+    gets(last);
+    printf("Enter salary : ");
+    scanf("%f", &(*salary));
+}
+
+
+//function calculating salary, rate, raise, newsalary
+void calc(float salary, float *rate, float *raise, float *newsalary)
+{
+    if(0 < salary && salary < 30000)
+       {
+           *rate = 7.0;
+           *raise = 0.07 * salary;
+           *newsalary = *raise + salary;
+       }
+        else
+    if(30000 <= salary && salary <= 40000)
+       {
+           *rate = 5.5;
+           *raise = 0.055 * salary;
+           *newsalary = *raise + salary;
+       }
+        else
+        {
+            *rate = 4.0;
+            *raise = 0.04 * salary;
+            *newsalary = *raise + salary;
+        }
+}
+
+
+//function calculating total salary
+float tsal(float totalsal, float salary)
+{
+    totalsal += salary;
+
+    return totalsal;
+}
+
+
+//function calculating total raise
+float traise(float totalraise, float raise)
+{
+    totalraise += raise;
+
+    return totalraise;
+}
+
+
+//function calculating total new salary
+float tnewsal(float totalnewsal, float newsalary)
+{
+    totalnewsal += newsalary;
+
+    return totalnewsal;
+}
+
+
+
+//function output for employee data
+void output(char *first, char *last, float salary, float rate, float raise, float newsalary)
+{
+    printf("\nEmployee's Name   : %s %s", first, last);
+    printf("\nSalary            :%13.2f", salary);
+    printf("\nRate              :%12.1f%%", rate);
+    printf("\nRaise             :%13.2f", raise);
+    printf("\nNew Salary        :%13.2f\n\n", newsalary);
+}
+
+
+//function printing total salary, total raise, total new salary
+void total(float totalsal, float totalraise, float totalnewsal)
+{
+    printf("\nTotal Salary      : %12.2f", totalsal);
+    printf("\nTotal Raise       : %12.2f", totalraise);
+    printf("\nTotal New Salary  : %12.2f", totalnewsal);
+}
